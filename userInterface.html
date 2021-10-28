@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+        if (!crossOriginIsolated) SharedArrayBuffer = ArrayBuffer;
+      </script>
+      <title>User Interface</title>
+      <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+      <link rel="stylesheet" type="text/css" href="./map.css" />
+      <script type="text/javascript" src="userInterface.js"></script>
+</head>
+<body style="background-color: lightblue;">
+    <div id="map1"></div>
+    <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoDu0AvF3Sml9g12Mx5Qx9fO5w-LQ7wOU&callback=initMap&v=weekly"
+    async></script>
+    
+</body>
+</html>

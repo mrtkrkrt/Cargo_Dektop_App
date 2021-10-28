@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script>
+    if (!crossOriginIsolated) SharedArrayBuffer = ArrayBuffer;
+  </script>
+  <title>Control Options</title>
+  <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+  <link rel="stylesheet" type="text/css" href="./map.css" />
+  <script type="text/javascript" src="map.js"></script>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      box-sizing: border-box;
+    }
+
+    .row {
+      background-color: rgb(255, 253, 253);
+      border-radius: 30px;
+    }
+
+    .img-logo {
+      border-radius: 30px;
+    }
+
+    .btn1 {
+      border: none;
+      outline: none;
+      height: 50px;
+      width: 100%;
+      background-color: rgb(10, 163, 81);
+      color: white;
+      border-radius: 4px;
+      font-weight: bold;
+    }
+
+    .btn1:hover {
+      background-color: white;
+      border: 1px solid;
+      color: black;
+    }
+
+    .link-1 {
+      text-decoration: none;
+
+    }
+
+    .link-1:hover {
+      text-decoration: underline;
+    }
+
+    .btn-mark {
+      border-radius: 30px;
+    }
+  </style>
+
+
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+
+<body class="bg-dark offset-sm-1">
+  <section class="Form my-4 mx-5 " id="login-display">
+    <div class="container">
+      <div class="row" style="height: 600px;">
+        <div class="col-lg-5 mt-5">
+          <img src="img/kou-logo.jpg" class="img-fluid img-logo" alt="">
+        </div>
+
+        <div class="col-lg-7 px-5 pt-5 mt-5">
+          <h1>KOU Kargo Uygulaması</h1>
+          <form id="loginForm">
+            <h4>Kullanıcı Girişi</h4>
+            <div class="form-row">
+              <div class="col-lg-7">
+                <input type="text" id="usernameLoginInput" placeholder="Kullanıcı Adı" class="form-control my-2 p-3">
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="col-lg-7">
+                <input type="password" class="form-control my-2 p-3" placeholder="Şifre" id="passwordLoginInput">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-lg-7">
+                <button type="submit" id="loginButton" class="btn1 mt-3 mb-3">Giriş Yap</button>
+
+              </div>
+            </div>
+            <a href="#signForm" id="signButton" class="text-dark link-1" role="button" type="submit">Hesap Oluştur</a>
+          </form>
+
+          <form id="signForm">
+            <h4>Kayıt Ol</h4>
+            <div class="mb-3">
+              <input class="form-control my-2 p-3" placeholder="Kullanıcı Adı Giriniz" id="usernameSignInput">
+            </div>
+            <div class="mb-3">
+              <input type="password" placeholder="Şifre Giriniz" class="form-control my-2 p-3" id="passwordSignInput">
+            </div>
+            <button type="submit" id="recordButton" class="btn1 mt-3 mb-3">Kayıt Ol</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <div id="wholeMap">
+    <div id="map"></div>
+
+    <div class="container d-flex justify-content-start">
+      <button type="button" id="calcRouteButton" class="btn btn-success ml-0 my-2">Rota Hesapla</button>
+      <button type="button" id="postmanForwardButton" class="btn btn-success ml-2 my-2">Bir Rota İlerle</button>
+      <ul style="list-style-type:circle;" id="pathList"></ul>
+    </div>
+    <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+    <script
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDoDu0AvF3Sml9g12Mx5Qx9fO5w-LQ7wOU&callback=initMap&v=weekly"
+      async>
+    </script>
+    <div class="input-group my-2 ml-2">
+      <div class="row" style="border-radius: 0;">
+        <div class="input-group-prepend col-sm-3">
+          <span class="input-group-text m-0 d-flex justify-content-start" style="height: 38px;" id="">Koordinatları
+            Giriniz</span>
+        </div>
+        <input type="text" placeholder="Latitude" class="form-control col-sm-3" id="lat">
+        <input type="text" placeholder="Longtitude" class="form-control col-sm-3" id="lng">
+        <button id="addMarkerOnMap" class="btn btn-success col-sm-3 btn-mark">Marker Ekle</button>
+      </div>
+    </div>
+
+
+    <div class="removeMarker container">
+      <button class="btn btn-outline-secondary btn-success mx-2 my-2" type="button" id="removeMarkerButton"
+        style="color: white">Marker Sil</button>
+      <select class="form-select mx-2 my-2" id="select" aria-label="Example select with button addon"></select>
+    </div>
+  </div>
+
+  <div id="hide-pass" style="position: absolute;right: 0;top: 0;">
+    <div class="d-flex flex-column" id="changePassword">
+      <div class="p-2">
+        <input type="password" placeholder="Yeni Şifre Giriniz" id="pass1">
+      </div>
+      <div class="p-2">
+        <input type="password" placeholder="Yeni Şifre Giriniz" id="pass2">
+      </div>
+      <div class="p-2">
+        <button id="changePass" class="btn-success p-1" style="border-radius: 8px;">Şifre Değiştir</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="deliveryForm">
+    <ul class="list-group list-group-horizontal">
+      <li class="list-group-item">Teslimat ID</li>
+      <li class="list-group-item">Teslimat Durumu</li>
+    </ul>
+  </div>
+
+</body>
+
+</html>
