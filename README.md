@@ -1,4 +1,4 @@
-"# KOU_Cargo_Dektop_App" 
+# KOU Delivery Tracking System Desktop APP
 
 ![image](https://user-images.githubusercontent.com/55550212/141857355-398dd6d5-8905-465f-923a-526b246c6b22.png)
 
